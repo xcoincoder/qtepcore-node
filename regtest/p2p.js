@@ -10,18 +10,18 @@ var p2p = require('bitcore-p2p');
 var Peer = p2p.Peer;
 var Messages = p2p.Messages;
 var chai = require('chai');
-var bitcore = require('qtumcore-lib');
+var bitcore = require('qtepcore-lib');
 var Transaction = bitcore.Transaction;
 var BN = bitcore.crypto.BN;
 var async = require('async');
 var rimraf = require('rimraf');
-var qtumd;
+var qtepd;
 
 /* jshint unused: false */
 var should = chai.should();
 var assert = chai.assert;
 var sinon = require('sinon');
-var BitcoinRPC = require('qtumd-rpc');
+var BitcoinRPC = require('qtepd-rpc');
 var transactionData = [];
 var blockHashes = [];
 var txs = [];
@@ -49,23 +49,23 @@ describe('P2P Functionality', function() {
         throw err;
       }
 
-      qtumd = require('../').services.Bitcoin({
+      qtepd = require('../').services.Bitcoin({
         spawn: {
           datadir: datadir,
-          exec: path.resolve(__dirname, '../bin/qtumd')
+          exec: path.resolve(__dirname, '../bin/qtepd')
         },
         node: {
           network: bitcore.Networks.testnet
         }
       });
 
-      qtumd.on('error', function(err) {
+      qtepd.on('error', function(err) {
         log.error('error="%s"', err.message);
       });
 
       log.info('Waiting for Bitcoin Core to initialize...');
 
-      qtumd.start(function(err) {
+      qtepd.start(function(err) {
         if (err) {
           throw err;
         }
@@ -163,8 +163,8 @@ describe('P2P Functionality', function() {
     this.timeout(20000);
     peer.on('disconnect', function() {
       log.info('Peer disconnected');
-      qtumd.node.stopping = true;
-      qtumd.stop(function(err, result) {
+      qtepd.node.stopping = true;
+      qtepd.stop(function(err, result) {
         done();
       });
     });
@@ -176,7 +176,7 @@ describe('P2P Functionality', function() {
 
     var usedTxs = {};
 
-    qtumd.on('tx', function(buffer) {
+    qtepd.on('tx', function(buffer) {
       var txFromResult = new Transaction().fromBuffer(buffer);
       var tx = usedTxs[txFromResult.id];
       should.exist(tx);

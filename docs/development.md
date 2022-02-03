@@ -10,22 +10,22 @@ nvm install v4
 
 ## Fork and Download Repositories
 
-To develop qtumcore-node:
+To develop qtepcore-node:
 
 ```bash
 cd ~
-git clone git@github.com:<yourusername>/qtumcore-node.git
-git clone git@github.com:<yourusername>/qtumcore-lib.git
+git clone git@github.com:<yourusername>/qtepcore-node.git
+git clone git@github.com:<yourusername>/qtepcore-lib.git
 ```
 
-To develop qtum or to compile from source:
+To develop qtep or to compile from source:
 
 ```bash
-git clone git@github.com:<yourusername>/qtumcoin.git
+git clone git@github.com:<yourusername>/qtepcoin.git
 git fetch origin <branchname>:<branchname>
 git checkout <branchname>
 ```
-**Note**: See qtum documentation for building qtum on your platform.
+**Note**: See qtep documentation for building qtep on your platform.
 
 
 ## Install Development Dependencies
@@ -51,22 +51,22 @@ npm install
 cd ../bitcore-node
 npm install
 ```
-**Note**: If you get a message about not being able to download qtum distribution, you'll need to compile qtumd from source, and setup your configuration to use that version.
+**Note**: If you get a message about not being able to download qtep distribution, you'll need to compile qtepd from source, and setup your configuration to use that version.
 
 
-We now will setup symlinks in `qtumcore-node` *(repeat this for any other modules you're planning on developing)*:
+We now will setup symlinks in `qtepcore-node` *(repeat this for any other modules you're planning on developing)*:
 ```bash
 cd node_modules
-rm -rf qtumcore-lib
-ln -s ~/qtumcore-lib
-rm -rf qtumd-rpc
-ln -s ~/qtumd-rpc
+rm -rf qtepcore-lib
+ln -s ~/qtepcore-lib
+rm -rf qtepd-rpc
+ln -s ~/qtepd-rpc
 ```
 
-And if you're compiling or developing qtumcoin:
+And if you're compiling or developing qtepcoin:
 ```bash
 cd ../bin
-ln -sf ~/qtum/src/qtumd
+ln -sf ~/qtep/src/qtepd
 ```
 
 ## Run Tests
@@ -78,19 +78,19 @@ npm install mocha -g
 
 To run all test suites:
 ```bash
-cd qtumcore-node
+cd qtepcore-node
 npm run regtest
 npm run test
 ```
 
 To run a specific unit test in watch mode:
 ```bash
-mocha -w -R spec test/services/qtumd.unit.js
+mocha -w -R spec test/services/qtepd.unit.js
 ```
 
 To run a specific regtest:
 ```bash
-mocha -R spec regtest/qtumd.js
+mocha -R spec regtest/qtepd.js
 ```
 
 ## Running a Development Node
@@ -102,46 +102,46 @@ cd ~
 mkdir devnode
 cd devnode
 mkdir node_modules
-touch qtumcore-node.json
+touch qtepcore-node.json
 touch package.json
 ```
 
-Edit `qtumcore-node.json` with something similar to:
+Edit `qtepcore-node.json` with something similar to:
 ```json
 {
   "network": "livenet",
   "port": 3001,
   "services": [
-    "qtumd",
+    "qtepd",
     "web",
     "insight-api",
     "insight-ui",
     "<additional_service>"
   ],
   "servicesConfig": {
-    "qtumd": {
+    "qtepd": {
       "spawn": {
-        "datadir": "/home/<youruser>/.qtum",
-        "exec": "/home/<youruser>/qtum/src/qtumd"
+        "datadir": "/home/<youruser>/.qtep",
+        "exec": "/home/<youruser>/qtep/src/qtepd"
       }
     }
   }
 }
 ```
 
-**Note**: To install services [qtum-insight-api](https://github.com/qtumproject/insight-api) and [qtum-explorer](https://github.com/qtumproject/qtum-explorer) you'll need to clone the repositories locally.
+**Note**: To install services [qtep-insight-api](https://github.com/xcoincoder/insight-api) and [qtep-explorer](https://github.com/xcoincoder/qtep-explorer) you'll need to clone the repositories locally.
 
 Setup symlinks for all of the services and dependencies:
 
 ```bash
 cd node_modules
-ln -s ~/qtumcore-lib
-ln -s ~/qtumcore-node
-ln -s ~/qtum-insight-api
-ln -s ~/qtum-explorer
+ln -s ~/qtepcore-lib
+ln -s ~/qtepcore-node
+ln -s ~/qtep-insight-api
+ln -s ~/qtep-explorer
 ```
 
-Make sure that the `<datadir>/qtum.conf` has the necessary settings, for example:
+Make sure that the `<datadir>/qtep.conf` has the necessary settings, for example:
 ```
 server=1
 whitelist=127.0.0.1
@@ -163,5 +163,5 @@ logevents=1
 
 From within the `devnode` directory with the configuration file, start the node:
 ```bash
-../qtumcore-node/bin/qtumcore-node start
+../qtepcore-node/bin/qtepcore-node start
 ```

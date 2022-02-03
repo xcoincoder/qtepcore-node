@@ -1,7 +1,7 @@
-Qtumcore Node
+Qtepcore Node
 ============
 
-A QTUM full node for building applications and services with Node.js. A node is extensible and can be configured to run additional services.
+A QTEP full node for building applications and services with Node.js. A node is extensible and can be configured to run additional services.
 
 ## Getting Started
 
@@ -13,43 +13,43 @@ A QTUM full node for building applications and services with Node.js. A node is 
     ```  
 2. Install mongo https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/  
 
-3. Install qtum-bitcore https://github.com/qtumproject/qtum-bitcore - with ZMQ ! 
+3. Install qtep-bitcore https://github.com/xcoincoder/qtep-bitcore - with ZMQ ! 
 
     ```bash
     # with ZMQ
     sudo apt-get install libzmq3-dev 
     ```  
-4. Install qtumcore-node  
+4. Install qtepcore-node  
 
     ```bash
-    npm i https://github.com/qtumproject/qtumcore-node.git#master
+    npm i https://github.com/xcoincoder/qtepcore-node.git#master
 
-    $(npm bin)/qtumcore-node create mynode
+    $(npm bin)/qtepcore-node create mynode
 
     cd mynode
 
     ```  
-5. Edit qtumcore-node.json  
+5. Edit qtepcore-node.json  
 
     ```json
     {
       "network": "livenet",
       "port": 3001,
       "services": [
-	    "qtumd",
+	    "qtepd",
         "web"
       ],
       "servicesConfig": {
-        "qtumd": {
+        "qtepd": {
           "spawn": {
-            "datadir": "/home/user/.qtum",
-            "exec": "/home/user/qtum-bitcore/src/qtumd"
+            "datadir": "/home/user/.qtep",
+            "exec": "/home/user/qtep-bitcore/src/qtepd"
           }
         }
       }
 	}
     ```  
-6. Edit qtum.conf  
+6. Edit qtep.conf  
 
     ```
     server=1
@@ -72,15 +72,15 @@ A QTUM full node for building applications and services with Node.js. A node is 
 7. Run Node  
 
     ```
-    $(npm bin)/qtumcore-node start
+    $(npm bin)/qtepcore-node start
     ```  
 
 ## Add-on Services
 
-There are several add-on services available to extend the functionality of Qtumcore:
+There are several add-on services available to extend the functionality of Qtepcore:
 
-- [QTUM Insight API](https://github.com/qtumproject/insight-api)
-- [QTUM Explorer](https://github.com/qtumproject/qtum-explorer)
+- [QTEP Insight API](https://github.com/xcoincoder/insight-api)
+- [QTEP Explorer](https://github.com/xcoincoder/qtep-explorer)
 
 ## Contributing
 
